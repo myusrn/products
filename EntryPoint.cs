@@ -25,7 +25,7 @@ namespace Products
     public class EntryPoint
     {
         private const string Status = "in progress";
-        private const string Version = "02jul12";
+        private const string Version = "28sep21";
 
         private const string RegExKbPattern = "(KB\\d{7})|(KB\\d{6})|(KB\\d{5})";
         private static Regex RegExKb = new Regex(RegExKbPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -591,10 +591,16 @@ namespace Products
                     foreach (string subkey in rk.GetSubKeyNames())
                     {
                         RegistryKey skPatches = rk.OpenSubKey(subkey + "\\Patches");
+                        if (skPatches == null)
+                        {
+                            //Console.WriteLine("OpenSubKey({0}) returned a null reference", subkey + "\\Patches");
+                            //Console.WriteLine("Expected SubKey {0} does not exist", subkey + "\\Patches");
+                            continue; // Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object
+                        }
                         foreach (string subkeyPatchesGuid in skPatches.GetSubKeyNames())
                         {
                             RegistryKey skPatchesGuid = skPatches.OpenSubKey(subkeyPatchesGuid);
-                            if (skPatchesGuid.GetValue("DisplayName") != null /* && skPatchesGuid.GetValue("State") != null */ &&
+                            if (skPatchesGuid.GetValue("DisplayName") != null /* && skPatchesGuid.GetValue("State") != null */ && 
                                 skPatchesGuid.GetValue("State").ToString() == "1")
                             {
                                 totalMicrosoftUpdateHits++;
@@ -1004,10 +1010,16 @@ namespace Products
                     foreach (string subkey in rk.GetSubKeyNames())
                     {
                         RegistryKey skPatches = rk.OpenSubKey(subkey + "\\Patches");
+                        if (skPatches == null)
+                        {
+                            //Console.WriteLine("OpenSubKey({0}) returned a null reference", subkey + "\\Patches");
+                            //Console.WriteLine("Expected SubKey {0} does not exist", subkey + "\\Patches");
+                            continue; // Unhandled Exception: System.NullReferenceException: Object reference not set to an instance of an object
+                        }
                         foreach (string subkeyPatchesGuid in skPatches.GetSubKeyNames())
                         {
                             RegistryKey skPatchesGuid = skPatches.OpenSubKey(subkeyPatchesGuid);
-                            if (skPatchesGuid.GetValue("DisplayName") != null /* && skPatchesGuid.GetValue("State") != null */ &&
+                            if (skPatchesGuid.GetValue("DisplayName") != null /* && skPatchesGuid.GetValue("State") != null */ && 
                                 skPatchesGuid.GetValue("State").ToString() == "1")
                             {
                                 string currentItemId = /* skPatchesGuid.Name */ subkeyPatchesGuid;
