@@ -4,7 +4,7 @@ list and search, using regex on name and version, for installed products from a 
 status = in progress  
 version = 28sep21
 
-28sep21 recompiling using vs22 and nfx48 and fixed exception arising iterating through Product.Mu where Patches subkey does not exist
+28sep21 recompiling using vs22 and nfx48 and fixed exception arising iterating through Product.Mu where Patches subkey does not exist  
 05feb18 recompiling made Products.Mu /t all processing exception surfacing in new os environments go away  
 27dec17 added /t nonmsi processing that looks in CurrentUser registry path in addition to LocalMachine registry path  
 02jul12 added /x processing use of ignoredependencies=all property that causes silent uninstalls when msi has chained ref counts  
